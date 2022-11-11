@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  # postgres ------------------------------------------
+  postgres_care:
+    image: postgres:12.12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgre123
+      POSTGRES_DB: care_be
+    ports:
+      - "5432:5432"
+    volumes:
+       - postgres:/data/postgres
+    container_name: node_care_db
+  # Node.js ------------------------------------------
+  node_care:
+    build: .
+    container_name: node_care
+    depends_on:
+      - postgres_node
+    volumes:
+      - /tmp/images/:/opt/app/public/images
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+volumes:
+    postgres:

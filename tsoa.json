@@ -1,0 +1,64 @@
+{
+  "entryFile": "src/server.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/**/*controller.ts"
+  ],
+  "spec": {
+    "securityDefinitions": {
+      "bearer": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "outputDirectory": "./src",
+    "specVersion": 3,
+    "basePath": "/api/v1",
+    "entryFile": "./src/server.ts",
+    "controllerPathGlobs": [
+      "./src/**/*controller.ts"
+    ],
+    "specMerging": "recursive",
+    "spec": {
+      "paths": {
+        "/rooms/upload-images": {
+          "post": {
+            "consumes": [
+              "multipart/form-data"
+            ],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "multipart/form-data": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "images": {
+                        "items": {
+                          "type": "string",
+                          "format": "binary"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "images"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "routes": {
+    "basePath": "/api/v1",
+    "entryFile": "./src/server.ts",
+    "routesDir": "./src/routes/",
+    "middleware": "express",
+    "authenticationModule": "./src/middleware/auth.middleware.ts"
+  }
+}
